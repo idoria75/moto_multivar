@@ -10,6 +10,7 @@ Servo gyro, myServo;
 #define MIN_ANALOG_READ     0 // (analog resolution)
 #define MAX_ANALOG_READ  1023 // (analog resolution)
 // Define Pins
+//const int potPin = 0;
 const int buttonPin = 2;
 const int servoPin = 5;
 const int gyroPin = 9;
@@ -33,26 +34,40 @@ void setup() {
 	initialize_servo();
 	initialize_gyro();
 	attachInterrupt(digitalPinToInterrupt(buttonPin), changeSpeed, FALLING);
-
 	//delay(1000);
-	
 	Serial.println("Setup Complete");
 }
 
 void loop() {
-    if(digitalRead(buttonPin)){
-    	changeSpeed();
-    }
+    // if(digitalRead(buttonPin)){
+    // 	changeSpeed();
+    // }
     if(buttonPressed == true){
-    	Serial.print("Set speed to: ");
-    	Serial.println(cur_speed);
+    	button_counter = button_counter + 1;
+    	switch (speed_state){
+    		case 1:
+    			cur_speed = 1200;
+    			break;
+    		case 2:
+    			cur_speed = 1500;
+    			break;
+    		case 3:
+    			cur_speed = 1800;
+    			break;
+    		case 4:
+    			cur_speed = 1200;
+    			speed_state = 1;
+    			break;
+    	}
+    	Serial.print("Set speed to: "); Serial.println(cur_speed);
     	gyro.writeMicroseconds(cur_speed);
     	delay(1000);
     	buttonPressed = false;
-    	Serial.print("Button counter: ");
-    	Serial.println(button_counter);
+    	//Serial.print("Button counter: ");
+    	//Serial.println(button_counter);
     }
-    
+
+
 }
 
 void initialize_servo(){
@@ -73,21 +88,11 @@ void initialize_gyro(){
 
 void changeSpeed(){
 	if(buttonPressed == false){
-		button_counter = button_counter+1;
-		if(cur_speed == 1200){
-			cur_speed = 1500;
-			buttonPressed = true;
-			return;
-		}
-		if(cur_speed == 1500){
-			cur_speed = 1800;
-			buttonPressed = true;
-			return;
-		}
-		if(cur_speed == 1800){
-			cur_speed = 1200;
-			buttonPressed = true;
-			return;
-		}
+		speed_state = speed_state+1;
+		buttonPressed = true;
 	}
 }
+
+// void potServoControl(){
+// 	val = 
+// }
