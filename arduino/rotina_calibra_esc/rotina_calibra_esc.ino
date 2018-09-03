@@ -10,17 +10,18 @@ Servo gyro, myServo;
 #define MIN_ANALOG_READ     0 // (analog resolution)
 #define MAX_ANALOG_READ  1023 // (analog resolution)
 // Define Pins
-//const int potPin = 0;
+const int potPin = A0;
 const int buttonPin = 2;
 const int servoPin = 5;
 const int gyroPin = 9;
 const int ledPin = 13;
 
 bool flag_esc = false; // True for ESC ON
-int cur_speed  = 1200;
-volatile byte speed_state = 1; // state <-> cur_speed: 1 = 1200; 2 = 1500; 3 = 1800;
+int cur_speed  = 1500;
+volatile byte speed_state = 2; // state <-> cur_speed: 1 = 1200; 2 = 1500; 3 = 1800;
 volatile bool buttonPressed = false;
 int button_counter = 0;
+int potValue = 0;
 
 void setup() {
     // put your setup code here, to run once:
@@ -66,8 +67,7 @@ void loop() {
     	//Serial.print("Button counter: ");
     	//Serial.println(button_counter);
     }
-
-
+    potServoControl();
 }
 
 void initialize_servo(){
@@ -93,6 +93,8 @@ void changeSpeed(){
 	}
 }
 
-// void potServoControl(){
-// 	val = 
-// }
+void potServoControl(){
+	potValue = analogRead(potPin);
+	potValue = map(potValue,MIN_ANALOG_READ,MAX_ANALOG_READ,MIN_SERVO_ANGLE,MAX_SERVO_ANGLE);
+	myServo.write(potValue);
+}
