@@ -122,19 +122,17 @@ void potServoControl(){
 void handle_imu(){
     imu.Update(); // Pega os valores atuais
 
-  rot = imu.GetRotation(); // Pega rotação e velocidade
-  vel = imu.GetVelocity();
+    rot = imu.GetRotation(); // Pega rotação e velocidade
+    vel = imu.GetVelocity();
 
-  // Imprime os valores, comente a linha para desabilitar
-  Serial.print("X: ");
-  Serial.print(rot.x); Serial.print('\t');
-  Serial.print(vel.x); Serial.print('\t');
+    // Imprime os valores, comente a linha para desabilitar
+    Serial.print("Rot_X: "); Serial.print(rot.x); Serial.print(" ");
+    Serial.print("Vel_X: "); Serial.print(vel.x); Serial.print(" ");
 
-  Serial.print("Y: ");
-  Serial.print(rot.y); Serial.print('\t');
-  Serial.print(vel.y); Serial.print('\t');
+    Serial.print("Rot_Y: "); Serial.print(rot.y); Serial.print(" ");
+    Serial.print("Vel_Y: "); Serial.print(vel.y); Serial.print(" ");
 
-  Serial.println();
+    Serial.println(" ");
 
-  //delay(10);
+    //delay(10);
 }
