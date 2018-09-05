@@ -40,6 +40,11 @@ eig(A)
 
 %% 2.2: Verificar Controlabilidade e Observabilidade
 disp('------Item 2------')
+MC = [B A*B A^2*B A^3*B]
+
+% Calcula os valores nao-singulares da matriz MC.
+% Mais robusto do que calcular o posto da matriz.
+svd(MC)
 
 % Verificar controlabilidade
 

@@ -81,6 +81,7 @@ void loop() {
     }
     potServoControl();
     handle_imu();
+    plot_data();
     delay(10);
 }
 
@@ -126,13 +127,20 @@ void handle_imu(){
     vel = imu.GetVelocity();
 
     // Imprime os valores, comente a linha para desabilitar
-    Serial.print("Rot_X: "); Serial.print(rot.x); Serial.print(" ");
-    Serial.print("Vel_X: "); Serial.print(vel.x); Serial.print(" ");
+    //Serial.print("Rot_X: "); Serial.print(rot.x); Serial.print(" ");
+    //Serial.print("Vel_X: "); Serial.print(vel.x); Serial.print(" ");
 
-    Serial.print("Rot_Y: "); Serial.print(rot.y); Serial.print(" ");
-    Serial.print("Vel_Y: "); Serial.print(vel.y); Serial.print(" ");
+    //Serial.print("Rot_Y: "); Serial.print(rot.y); Serial.print(" ");
+    //Serial.print("Vel_Y: "); Serial.print(vel.y); Serial.print(" ");
 
     Serial.println(" ");
 
     //delay(10);
+}
+
+void plot_data(){
+    Serial.print("Rot_X: "); Serial.print(rot.x); Serial.print(" ");
+    Serial.print("Vel_X: "); Serial.print(vel.x); Serial.print(" ");    
+    Serial.print("Ang_Gyro: "); Serial.print(potValue); Serial.print(" ");    
+    Serial.println(" ");
 }
