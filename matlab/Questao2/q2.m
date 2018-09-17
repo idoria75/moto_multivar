@@ -136,7 +136,7 @@ disp('Todos os valores sao maiores do que zero.');
 disp('Sistema aumentado eh controlavel');
 
 % Polos desejados
-pd = -4;
+pd = -4.4;
 disp('Polos desejados');
 disp(pd);
 Ka = place(Aa,Ba,[pd pd-0.05 pd-0.1 pd-0.15 pd-0.2]);
@@ -158,3 +158,6 @@ disp(Km);
 
 %% Questao 2.5: Projeto de Controlador com Observador de Estados p/ 
 %               rejeicao de perturbacoes senoidais (referencia nula).
+
+%% Executa Simulink
+simOut = sim('q2_model');
