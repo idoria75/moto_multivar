@@ -160,10 +160,10 @@ disp(Km);
 %               rejeicao de perturbacoes senoidais (referencia nula).
 
 % Polos do observador mais rapidos que os adicionados ao sistema
-pdObs = 10*pd;
+pdObs = 5*pd;
 % Posiciona polos do observador
 H = place(A', C',[pdObs-.025, pdObs-0.05, pdObs-0.075, pdObs-0.1]);
 L = H';
-x0Obs = [0 0 pi/8 0];
+x0Obs = [0 0 pi/4 0];
 %% Executa Simulink
 simOut = sim('q2_model');
