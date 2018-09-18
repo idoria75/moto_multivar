@@ -106,7 +106,7 @@ sys = ss(A,B,C,D);
 G=zpk(minreal(tf(sys)));
 
 % Condicao inicial do sistema
-x0 = [0 0 0 0]; 
+x0 = [0 0 pi/6 0]; 
 
 Dsim = zeros(4,1);
 
@@ -139,7 +139,7 @@ disp('Sistema aumentado eh controlavel');
 pd = -4.4;
 disp('Polos desejados');
 disp(pd);
-Ka = place(Aa,Ba,[pd pd-0.05 pd-0.1 pd-0.15 pd-0.2]);
+Ka = place(Aa,Ba,[pd pd-0.025 pd-0.05 pd-0.075 pd-0.1]);
 %disp('Ka:');
 %disp(Ka);
 
@@ -159,5 +159,11 @@ disp(Km);
 %% Questao 2.5: Projeto de Controlador com Observador de Estados p/ 
 %               rejeicao de perturbacoes senoidais (referencia nula).
 
+% Polos do observador mais rapidos que os adicionados ao sistema
+pdObs = 10*pd;
+% Posiciona polos do observador
+H = place(A', C',[pdObs-.025, pdObs-0.05, pdObs-0.075, pdObs-0.1]);
+L = H';
+x0Obs = [0 0 pi/8 0];
 %% Executa Simulink
 simOut = sim('q2_model');
