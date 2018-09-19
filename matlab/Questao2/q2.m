@@ -110,8 +110,6 @@ x0 = [0 0 pi/6 0];
 
 Dsim = zeros(4,1);
 
-%% Questao 2.4: Projeto de Controlador sem Observador de Estados (Simulink)
-
 % Modelo Interno
 % Beta(s) = S
 
@@ -156,8 +154,7 @@ disp('Ganho para estado aumentado');
 Km = Ka(5);
 disp(Km);
 
-%% Questao 2.5: Projeto de Controlador com Observador de Estados p/ 
-%               rejeicao de perturbacoes senoidais (referencia nula).
+%% Questao 2.4: Projeto de Controlador sem Observador de Estados (Simulink)
 
 % Polos do observador mais rapidos que os adicionados ao sistema
 pdObs = 5*pd;
@@ -165,5 +162,10 @@ pdObs = 5*pd;
 H = place(A', C',[pdObs-.025, pdObs-0.05, pdObs-0.075, pdObs-0.1]);
 L = H';
 x0Obs = [0 0 pi/4 0];
+
+%% Questao 2.5: Projeto de Controlador com Observador de Estados p/ 
+%               rejeicao de perturbacoes senoidais (referencia nula).
+
+% FAZER!!
 %% Executa Simulink
 simOut = sim('q2_model');
