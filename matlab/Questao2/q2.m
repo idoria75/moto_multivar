@@ -100,18 +100,20 @@ disp('Valores singulares de MO_2b: ');
 disp(svd(MO_2b));
 
 %% Questao 2.3: Projeto de Controlador com Observador de Estados (Simulink)
-
 % Define o sistema trabalhado:
 sys = ss(A,B,C,D);
-G=zpk(minreal(tf(sys)));
+G_tf = minreal(tf(sys));
+G=zpk(G_tf);
 
 % Condicao inicial do sistema
 x0 = [0 0 pi/6 0]; 
 
 Dsim = zeros(4,1);
 
+% Especificacoes desejadas
+disp('Rastrear ref e rejeitar pert em 2s');
 % Modelo Interno
-% Beta(s) = S
+% Beta(s) = S -> alpha0 = 0
 
 % Matrizes formadas a partir de beta (ver pg. 75 notas de aula)
 M = [0];
@@ -144,6 +146,7 @@ Ka = place(Aa,Ba,[pd pd-0.025 pd-0.05 pd-0.075 pd-0.1]);
 % Verificacao
 disp('Polos MF:');
 polosMF = eig(Aa-Ba*Ka);
+disp(polosMF);
 
 % Matriz de ganho para o estado da planta x
 disp('Ganho p/ estado da planta');
@@ -154,18 +157,84 @@ disp('Ganho para estado aumentado');
 Km = Ka(5);
 disp(Km);
 
+% Funcao de Transferencia
+G_tf
+
 %% Questao 2.4: Projeto de Controlador sem Observador de Estados (Simulink)
 
 % Polos do observador mais rapidos que os adicionados ao sistema
-pdObs = 5*pd;
+pdObs = 3*pd;
 % Posiciona polos do observador
 H = place(A', C',[pdObs-.025, pdObs-0.05, pdObs-0.075, pdObs-0.1]);
 L = H';
-x0Obs = [0 0 pi/4 0];
+x0Obs = [0 0 pi/7 0];
 
 %% Questao 2.5: Projeto de Controlador com Observador de Estados p/ 
 %               rejeicao de perturbacoes senoidais (referencia nula).
 
-% FAZER!!
+% Beta = s^2+0*s+0.1^2 -> alpha0 = 0.1^2=0.01; alpha1 = 0
+alpha0 = 0;
+alpha1 = -0.01;
+alpha2 = 0;
+
+M_q5 = [zeros(2,1) eye(2)    ;
+        alpha0 alpha1 alpha2];
+
+N_q5 = [0 ;
+        0 ;
+        1];
+    
+Am_q5 = M_q5;
+Bm_q5 = N_q5
+
+Cm_q5 = eye(3);
+Dm_q5 = zeros(3,1);
+
+Aa_q5 = [   A     zeros(4,3) ;
+         -Bm_q5*C   Am_q5   ];
+
+Ba_q5 = [B ;
+         0 ;
+         0 ;
+         0];
+     
+MC_q5 = [Ba_q5 Aa_q5*Ba_q5 Aa_q5^2*Ba_q5 Aa_q5^3*Ba_q5 Aa_q5^4*Ba_q5 Aa_q5^6*Ba_q5 Aa_q5^7*Ba_q5];
+
+disp('Valores singulares de MC_SistAum_q5:');
+format long;
+disp(svd(MC_q5));
+format short;
+disp('Todos os valores sao maiores do que zero.');
+disp('Sistema aumentado eh controlavel');
+
+% Polos desejados
+pd_q5 = -2.5;
+disp('Polos desejados');
+disp(pd_q5);
+Ka_q5 = place(Aa_q5,Ba_q5,[pd_q5 pd_q5-0.025 pd_q5-0.05 pd_q5-0.075 pd_q5-0.1 pd_q5-0.125 pd_q5-0.150]);
+%disp('Ka:');
+%disp(Ka);
+
+% Verificacao
+disp('Polos MF:');
+polosMF_q5 = eig(Aa_q5-Ba_q5*Ka_q5);
+disp(polosMF_q5);
+
+% Matriz de ganho para o estado da planta x
+disp('Ganho p/ estado da planta');
+K_q5 = Ka_q5(:,1:4);
+disp(K_q5);
+% Matriz de ganho para o estado do modelo interno xm
+disp('Ganho para estado aumentado');
+Km_q5 = Ka_q5(5:7);
+disp(Km_q5);
 %% Executa Simulink
+% scope_ref = 'q2_model/Pos_E_Sinal';
+% open_system(scope_ref);
+% scope_config = get_param(scope_ref, 'ScopeConfiguration');
+% scope_config.ShowLegend = true;
+% scope_config.ShowGrid = true;
+% scope_config.AxesScaling = 'Auto';
+open_system('q2_model/Pos_E_Sinal_Q5');
 simOut = sim('q2_model');
+

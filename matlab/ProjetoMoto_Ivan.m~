@@ -50,7 +50,7 @@ A = double(subs(jacobian(f), [x1 x2], [0 0]));
 B = double(subs(u, [x1 x2], [0 0]));
 C = [1 1 0];
 D = 0;
-Dsim = zeros(3,1);
+
 % Define o sistema
 sys = ss(A,B,C,D);
 
@@ -85,8 +85,3 @@ x0 = [pi/4 0 0];
 pd = -12;
 P1 = [pd-.1 pd-.2 pd-.3];
 K=place(A,B,P1);
-
-r = 0.7;
-R = r;
-Q = eye(3);
-Ka = lqr(A, B, Q, R)

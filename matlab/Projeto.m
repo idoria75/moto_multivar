@@ -2,16 +2,16 @@ clc
 clear all
 close all
 %%
-% Parâmetros do modelo
-Mv = 0.152; % Massa do veículo sem giro [kg]
+% Par?metros do modelo
+Mv = 0.152; % Massa do ve?culo sem giro [kg]
 Mg = 0.15; % Massa do giro [kg]
 Rg = 0.095/2; % Raio do giro [m]
 Ag = 0.006; % Espessura giro [m]
-Av = 0.075; % Altura veículo [m]
-Lv = 0.19; % Largura veículo [m]
-Dg = 0.06; % Distância entre centro de massa do giro e eixo de rotação [m]
-Dv = 0.045; % Distância entre centro de massa do veículo e eixo de rotação
-Omega = 7200*0.10472; % Velocidade de rotação do giro, rpm*conversão = rad/sec
+Av = 0.075; % Altura ve?culo [m]
+Lv = 0.19; % Largura ve?culo [m]
+Dg = 0.06; % Dist?ncia entre centro de massa do giro e eixo de rota??o [m]
+Dv = 0.045; % Dist?ncia entre centro de massa do ve?culo e eixo de rota??o
+Omega = 7200*0.10472; % Velocidade de rota??o do giro, rpm*convers?o = rad/sec
 g = 9.81; % Gravidade [m/s^2] 
 IG11 = Mg*(Rg^2)/4 + Mg*(Ag^2)/12; % Algum momento de inercia
 IG33 = Mg*(Rg^2)/2;
@@ -22,7 +22,7 @@ IB11 = Mv*(Av^2+Lv^2)/12;
 syms x1 x2 x3 u;
 f1 = x3;
 f2 = 0;
-f3 = ((Mv*Dv*Mg*Dg)*g*sin(x1))/(IB11+Mv*(Dv^2)+IG11*(cos(x2)^2)+Mg*(Dg^2)+IG33*((sin(x2))^2));
+f3 = ((Mv*Dv+Mg*Dg)*g*sin(x1))/(IB11+Mv*(Dv^2)+IG11*(cos(x2)^2)+Mg*(Dg^2)+IG33*((sin(x2))^2));
 f = [f1;f2;f3];
 u1 = 0;
 u2 = 1;
@@ -37,7 +37,7 @@ x0 = [pi/4 0 0];
 P1 = [-12.01 -12.02 -12];
 K = place(A,B,P1);
 
-%% Controle realimentação de estados
+%% Controle realimenta??o de estados
 
 % Verifica a controlabilidade do Sistema Aumentado
 Con = ctrb(A,B)
