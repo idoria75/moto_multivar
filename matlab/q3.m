@@ -11,13 +11,30 @@ M = 1;
 L = 1;
 g = 9.81;
 
-syms x1 x2 x3 x4 u;
+syms x1 x2 x3 x4 u %m M L g;
 x = [x1 x2 x3 x4];
+
+f1 = x2;
+f2 = (u-m*g*sin(x3)*cos(x3)+m*L*x4^2*sin(x3))/(M+m-m*cos(x3)^2);
+f3 = x4;
+f4 = (g*sin(x3)*(M+m)-cos(x3)*u-m*L*x4^2*sin(x3)*cos(x3))/(L*cos(x3)^2*m+M+m);
+
+f = [f1;
+     f2;
+     f3;
+     f4];
+
+A = subs(jacobian(f,x),[x1 x2 x3 x4],[0 0 0 0]);
+% f2_(x1,x2,x3,x4) = f2;
+% f4_(x1,x2,x3,x4) = f4;
+% f2_ = diff(f2_,x3);
+% f4_ = diff(f4_,x3);
+% f2_ = f2_(x1,x2,0,x4)
+% f4_ = f4_(x1,x2,0,x4)
 C0 = 0;
 
 x0 = [0 0 pi/180*25 0];
 x0obs = [0; 0; pi/180*10; 0];
-
 
 % aux1 = -m*g/M;
 % aux2 = (m+M)*g/(M*L);
