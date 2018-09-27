@@ -42,3 +42,25 @@ C0 = 0;
 
 x0 = [0 0 pi/180*25 0];
 x0obs = [0; 0; pi/180*10; 0];
+
+% aux1 = -m*g/M;
+% aux2 = (m+M)*g/(M*L);
+% 
+% aux3 = 1/M;
+% aux4 = -1/(M*L);
+% 
+% A = [0 1  0   0;
+%      0 0 aux1 0;
+%      0 0  0   1;
+%      0 0 aux2 0;]
+%  
+% B = [  0 ;
+%      aux3;
+%        0 ;                                                                                                                                                                                                                  
+%      aux4]
+% 
+% C = [1 0 0 0];
+% 
+% D = zeros(1,1);
+% %% Determinar o conjunto dos pontos de equilibrio
+% sys = ss(A,B,C,D);
