@@ -34,9 +34,13 @@ B = double(subs(u, [x1 x2],[0 0]));
 C = [1 0 0;
     0 1 0];
 D = zeros(3,1);
-x0 = [pi/180*180 0 0];
+x0 = [pi/180*90 0 0];
 P1 = [-12.01 -12.02 -12];
-K = place(A,B,P1);
+%K = place(A,B,P1);
+
+pd = -5;
+P1 = [pd-.1 pd-.2 pd-.3];
+K=place(A,B,P1);
 
 %% Controle realimenta??o de estados
 
@@ -65,7 +69,7 @@ L=place(A',C',[pd pd-0.05 pd-0.03])';        % polo duplo de A-LC em s=-12
 
 %% Ruido
 rl = 1;
-V1 = 0.001*eye(3);
+V1 = 0.3*eye(3);
 V2 = rl*0.00005*eye(2);
 
 Lkf = lqr(A',C',V1,V2);
