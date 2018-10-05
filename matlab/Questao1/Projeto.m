@@ -29,7 +29,7 @@ u2 = 1;
 u3 = (-2*cos(x2)*sin(x2)*x3*(IG33-IG11)-Omega*cos(x2)*IG33)/(IB11+IG11*(cos(x2)^2)+Mv*(Dv^2)+Mg*(Dg^2)+IG33*(sin(x2)^2));
 u=[u1;u2;u3];
 
-A = double(subs(jacobian(f),[x1 x2],[0 0]));
+A = double(subs(jacobian(f),[x1 x2],[0 0]))
 B = double(subs(u, [x1 x2],[0 0]));
 C = [1 1 0];
 D = zeros(3,1);

@@ -28,29 +28,47 @@ f2 = 0;
 f3_num = (Mv*Dv+Mg*Dg)*g*sin(x1);
 f3_den = IB11+Mv*Dv^2+Mg*Dg^2+IG11*cos(x2)^2+IG33*sin(x2)^2;
 f3 = f3_num/f3_den;
-f = [f1;f2;f3];
+f = [f1;
+     f2;
+     f3];
 
 u1 = 0;
 u2 = 1;
 u3_num = (-2*cos(x2)*sin(x2)*(IG33-IG11)*x3)-(Omega*cos(x2)*IG33);
 u3_den = IB11+Mv*Dv^2+Mg*Dg^2+IG11*cos(x2)^2+IG33*sin(x2)^2;
 u3 = u3_num/u3_den;
-u = [u1;u2;u3];
+u = [u1;
+     u2;
+     u3];
 
+A = double(subs(jacobian(f),[x1 x2 x3],[0 0 0]))
+B = double(subs(u,[x1 x2 x3],[0 0 0]))
+C = [1 0 0;
+     0 1 0]
+D = zeros(3,1)
+
+
+
+
+%%
 % x_ponto = A*x+B*u
-A_ = [f1; f2; f3];
-B_ = [u1; u2; u3];
+A = [f1; f2; f3]
+B = [u1; u2; u3]
+C = [1 0 0;
+     0 1 0]
+D = zeros(2,3)
 
+%%
 % De acordo com o relatorio do Abreu:
-a1 = Omega*IG33/IG11;
-a2 = -Omega*IG33/(IB11+IG11+Mv*(Dv^2)+Mg*(Dg^2));
-a3 = g*(Mv*Dv+Mg*Dg)/(IB11+IG11+Mv*(Dv^2)+Mg*(Dg^2));
-eig(A_);
-A = double(subs(jacobian(f), [x1 x2], [0 0]));
-B = double(subs(u, [x1 x2], [0 0]));
-C = [1 1 0];
-D = 0;
-Dsim = zeros(3,1);
+% a1 = Omega*IG33/IG11;
+% a2 = -Omega*IG33/(IB11+IG11+Mv*(Dv^2)+Mg*(Dg^2));
+% a3 = g*(Mv*Dv+Mg*Dg)/(IB11+IG11+Mv*(Dv^2)+Mg*(Dg^2));
+% eig(A_);
+% A = double(subs(jacobian(f), [x1 x2], [0 0]));
+% B = double(subs(u, [x1 x2], [0 0]));
+% C = [1 1 0];
+% D = 0;
+% Dsim = zeros(3,1);
 % Define o sistema
 sys = ss(A,B,C,D);
 
