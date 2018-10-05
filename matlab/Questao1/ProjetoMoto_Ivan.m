@@ -21,7 +21,7 @@ IB11 = Mv*(Av^2+Lv^2)/12;
 % x3 = p_linha
 %  u = theta_linha
 
-syms x1 x2 x3 u; 
+syms x1 x2 x3 u;
 
 f1 = x3;
 f2 = 0;
