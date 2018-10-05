@@ -12,8 +12,8 @@ g = 9.81;
 syms x1 x2 x3 x4 u;
 x = [x1 x2 x3 x4];
 C0 = 0;
-x0 = [0 0 pi/180*25 0];
-x0obs = [0; 0; pi/180*10; 0];
+x0 = [0 0 pi/180*12 0]; % Angulo limite p/ sistema: 46 graus
+x0obs = [0; 0; pi/180*20; 0];
 %% Equa??es n?o lineares para cada estado
 % dx1 = f1, dx2 = f2, dx3 = f3, dx4 = f4
 f1 = x2;
@@ -68,9 +68,13 @@ eig(A-Lk*C)
 %% LQR
 
 Q = eye(5);
-r = 10^-3;
+r = 0.01;
 R = eye(1)*r
 Ka = lqr(Aa,Ba,Q,R);
 Kx = Ka(1,1:4)
 Km = Ka(1,5)
 eig(Aa-Ka*Ba)
+
+open_system('modelo_q3/Scope3');
+open_system('modelo_q3/Scope6');
+simOut = sim('modelo_q3');
