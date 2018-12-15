@@ -1,3 +1,52 @@
+-----------------------------------------------------------------------------------------------------------------------
+*Feito por: Ivan Posca Doria - ivanpdoria@gmail.com
+-----------------------------------------------------------------------------------------------------------------------
+Conexões ESC-Motor HD
+Boa parte dos Motores de HD disponíveis possuem 3 ou 4 terminais expostos para o usuário.
+Entretando, a saída do ESC possui apenas 3 terminais (saída trifásica).
+
+P/ Motor com 3 terminais:
+Simplesmente conectar os terminais.
+
+P/ Motor com 4 terminais:
+Neste caso, o motor possui uma conexão do tipo estrela, onde um terminal é o núcleo neutro e os outros são os terminais
+trifásicos. É necessário realizar a conexão com estes terminais, que não necessariamente estarão distribuídos em ordem.
+A chave aqui é, por tentativa e erro, realizar interpolações entre os terminais do ESC e os do Motor de modo a achar
+os 3 terminais do motor que devem ser usados. Deve-se lembrar também que o acionamento trifásico é composto por ondas
+que se alternam com uma sequência. Logo, talvez também seja necessário inverter dois terminais do ESC na hora de
+conectar ao motor.
+Dica: Uma ajuda para identificar os terminais do motor é testar a impedância entre os terminais. Uma conexão terminal-
+nucleo resultará em metade da impedância de uma conexão terminal-terminal (ver obs1).
+Exemplo: Se já foram identificados os terminais do motor mas o ESC ainda não dá partida no motor usando a sequência dos
+terminais do ESC 1-2-3, tentar a sequência 1-3-2 (ver obs2).
+
+Obs1:
+Conexão estrela:
+1           2
+  L \    / L 
+      o         -> Neutro (não conectar aqui)
+      | L
+      3
+
+Obs2:
+- Terminais corretos mas ordem errada
+\/ Motor (com neutro no 3)
+A B C D
+| |  /
+1 2 3
+/\ Esc
+
+- Terminais corretos com ordem corrigida (se necessário)
+\/ Motor (com neutro no 3)
+A B C D
+| |  /
+1 3 2
+/\ Esc
+
+-----------------------------------------------------------------------------------------------------------------------
+Roteiro para programação dos ESCs
+Procurar seguir o roteiro em um local silencioso, pois todas as ações irão depender dos beeps gerados pelo motor
+
 Como visto em:
 https://www.firediy.fr/files/drone/HW-01-V4.pdf
 
@@ -18,7 +67,7 @@ https://www.firediy.fr/files/drone/HW-01-V4.pdf
 |-> f. Temporizador
 |-> g. Reset p/ configurações de fábrica
 |-> h. Sair do modo de programação
-*Cada opção é definida por uma sequencia de beeps, 3 segundos depois de escutar o beep p/ definir a funcao
+*Cada opção é definida por uma sequencia de beeps, levam 3 segundos, após o toque da sequência, para o ESC ir para a próxima funcao
 
 3. Definir valor p/ o item
 |-> Defina o valor do parametro de acordo com o numero de beeps
@@ -31,3 +80,5 @@ https://www.firediy.fr/files/drone/HW-01-V4.pdf
    |-> PWM 2000 em h. (beep longo, beep longo)
 |-> De 3:
    |-> PWM em 2000 e logo depois já descer p/ 1000
+
+-----------------------------------------------------------------------------------------------------------------------
