@@ -49,7 +49,7 @@ Procurar seguir o roteiro em um local silencioso, pois todas as ações irão depen
 Inserir letras 'i' e 'o' para setar o pwm em max ou min, de acordo com os valores definidos no código.
  
 Abrir pdf abaixo contendo os parâmetros possíveis para cada configuração:
-https://github.com/idoria75/moto_multivar/blob/master/arduino/calibra_esc_2/HW-01-V4.pdf
+https://github.com/idoria75/moto_multivar/blob/master/calibra_esc/HW-01-V4.pdf
 
 PRIMEIRA CONFIGURAÇÃO: DEFINIÇÃO DOS VALORES MAX E MIN RECEBIDOS PELO ESC:
 1. Ligar Arduino
