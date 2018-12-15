@@ -1,30 +1,30 @@
 -----------------------------------------------------------------------------------------------------------------------
 *Feito por: Ivan Posca Doria - ivanpdoria@gmail.com
 -----------------------------------------------------------------------------------------------------------------------
-Conexıes ESC-Motor HD
-Boa parte dos Motores de HD disponÌveis possuem 3 ou 4 terminais expostos para o usu·rio.
-Entretando, a saÌda do ESC possui apenas 3 terminais (saÌda trif·sica).
+Conex√µes ESC-Motor HD
+Boa parte dos Motores de HD dispon√≠veis possuem 3 ou 4 terminais expostos para o usu√°rio.
+Entretando, a sa√≠da do ESC possui apenas 3 terminais (sa√≠da trif√°sica).
 
 P/ Motor com 3 terminais:
 Simplesmente conectar os terminais.
 
 P/ Motor com 4 terminais:
-Neste caso, o motor possui uma conex„o do tipo estrela, onde um terminal È o n˙cleo neutro e os outros s„o os terminais
-trif·sicos. … necess·rio realizar a conex„o com estes terminais, que n„o necessariamente estar„o distribuÌdos em ordem.
-A chave aqui È, por tentativa e erro, realizar interpolaÁıes entre os terminais do ESC e os do Motor de modo a achar
-os 3 terminais do motor que devem ser usados. Deve-se lembrar tambÈm que o acionamento trif·sico È composto por ondas
-que se alternam com uma sequÍncia. Logo, talvez tambÈm seja necess·rio inverter dois terminais do ESC na hora de
+Neste caso, o motor possui uma conex√£o do tipo estrela, onde um terminal √© o n√∫cleo neutro e os outros s√£o os terminais
+trif√°sicos. √â necess√°rio realizar a conex√£o com estes terminais, que n√£o necessariamente estar√£o distribu√≠dos em ordem.
+A chave aqui √©, por tentativa e erro, realizar interpola√ß√µes entre os terminais do ESC e os do Motor de modo a achar
+os 3 terminais do motor que devem ser usados. Deve-se lembrar tamb√©m que o acionamento trif√°sico √© composto por ondas
+que se alternam com uma sequ√™ncia. Logo, talvez tamb√©m seja necess√°rio inverter dois terminais do ESC na hora de
 conectar ao motor.
-Dica: Uma ajuda para identificar os terminais do motor È testar a imped‚ncia entre os terminais. Uma conex„o terminal-
-nucleo resultar· em metade da imped‚ncia de uma conex„o terminal-terminal (ver obs1).
-Exemplo: Se j· foram identificados os terminais do motor mas o ESC ainda n„o d· partida no motor usando a sequÍncia dos
-terminais do ESC 1-2-3, tentar a sequÍncia 1-3-2 (ver obs2).
+Dica: Uma ajuda para identificar os terminais do motor √© testar a imped√¢ncia (L) entre os terminais. Uma conex√£o terminal-
+nucleo resultar√° em metade da imped√¢ncia (L) de uma conex√£o terminal-terminal (2*L) (ver obs1).
+Exemplo: Se j√° foram identificados os terminais do motor mas o ESC ainda n√£o d√° partida no motor usando a sequ√™ncia dos
+terminais do ESC 1-2-3, tentar a sequ√™ncia 1-3-2 (ver obs2).
 
 Obs1:
-Conex„o estrela:
+Conex√£o estrela:
 1           2
   L \    / L 
-      o         -> Neutro (n„o conectar aqui)
+      o         -> Neutro (n√£o conectar aqui)
       | L
       3
 
@@ -36,7 +36,7 @@ A B C D
 1 2 3
 /\ Esc
 
-- Terminais corretos com ordem corrigida (se necess·rio)
+- Terminais corretos com ordem corrigida (se necess√°rio)
 \/ Motor (com neutro no 3)
 A B C D
 | |  /
@@ -44,14 +44,14 @@ A B C D
 /\ Esc
 
 -----------------------------------------------------------------------------------------------------------------------
-Roteiro para programaÁ„o dos ESCs
-Procurar seguir o roteiro em um local silencioso, pois todas as aÁıes ir„o depender dos beeps gerados pelo motor
-Inserir letras 'i' e 'o' para setar o pwm em max ou min, de acordo com os valores definidos no cÛdigo.
+Roteiro para programa√ß√£o dos ESCs
+Procurar seguir o roteiro em um local silencioso, pois todas as a√ß√µes ir√£o depender dos beeps gerados pelo motor
+Inserir letras 'i' e 'o' para setar o pwm em max ou min, de acordo com os valores definidos no c√≥digo.
  
-Abrir pdf abaixo contendo os par‚metros possÌveis para cada configuraÁ„o:
+Abrir pdf abaixo contendo os par√¢metros poss√≠veis para cada configura√ß√£o:
 https://github.com/idoria75/moto_multivar/blob/master/calibra_esc/HW-01-V4.pdf
 
-PRIMEIRA CONFIGURA«√O: DEFINI«√O DOS VALORES MAX E MIN RECEBIDOS PELO ESC:
+PRIMEIRA CONFIGURA√á√ÉO: DEFINI√á√ÉO DOS VALORES MAX E MIN RECEBIDOS PELO ESC:
 1. Ligar Arduino
 2. Ativar PWM em MAX (Enviar i na serial)
 3. Ligar ESC
@@ -60,37 +60,37 @@ PRIMEIRA CONFIGURA«√O: DEFINI«√O DOS VALORES MAX E MIN RECEBIDOS PELO ESC:
 6. Esperar beep longo
 7. Desligar ESC
 
-SEGUNDA CONFIGURA«√O: ALTERA«√O DOS PAR¬METROS DE F¡BRICA (SOMENTE SE NECESS¡RIO)
-1. Entrar no modo de programaÁ„o
+SEGUNDA CONFIGURA√á√ÉO: ALTERA√á√ÉO DOS PAR√ÇMETROS DE F√ÅBRICA (SOMENTE SE NECESS√ÅRIO)
+1. Entrar no modo de programa√ß√£o
 |-> Ligar Arduino
 |-> Ativar PWM em MAX
 |-> Ligar ESC na Fonte
 |-> Esperar "beep, beep" (aprox. 2 sec)
-|-> Esperar beeps (aprox. 5 sec) -> Modo de programaÁ„o ativado
+|-> Esperar beeps (aprox. 5 sec) -> Modo de programa√ß√£o ativado
 
-2. Escolher item program·vel
-|-> Reduzir valor do PWM p/ MIN para escolher alguma das opÁıes abaixo:
+2. Escolher item program√°vel
+|-> Reduzir valor do PWM p/ MIN para escolher alguma das op√ß√µes abaixo:
 |-> a. Freios
 |-> b. Tipo de bateria
 |-> c. Modo de corte
 |-> d. Tipo de corte
-|-> e. Modo de inicializaÁ„o
+|-> e. Modo de inicializa√ß√£o
 |-> f. Temporizador
-|-> g. Reset p/ configuraÁıes de f·brica
-|-> h. Sair do modo de programaÁ„o
-*Cada opÁ„o È definida por uma sequencia de beeps, levam 3 segundos, apÛs o toque da sequÍncia, para o ESC ir para a prÛxima funcao
+|-> g. Reset p/ configura√ß√µes de f√°brica
+|-> h. Sair do modo de programa√ß√£o
+*Cada op√ß√£o √© definida por uma sequencia de beeps, levam 3 segundos, ap√≥s o toque da sequ√™ncia, para o ESC ir para a pr√≥xima funcao
 
 3. Definir valor p/ o item
 |-> Defina o valor do parametro de acordo com o numero de beeps
 |-> P/ escolher o valor, enviar PWM Max
 |-> Se manter em MAX, ESC volta para modo 2.
-|-> Se setar PWM para MIN em menos de 2 sec, ESC sai do modo de programaÁ„o
+|-> Se setar PWM para MIN em menos de 2 sec, ESC sai do modo de programa√ß√£o
 
-4. Sair do modo de programÁ„o:
+4. Sair do modo de program√ß√£o:
 |-> De 2:
    |-> PWM MAX em h. (beep longo, beep longo)
 |-> De 3:
-   |-> PWM em MAX e logo depois j· descer p/ MIN
+   |-> PWM em MAX e logo depois j√° descer p/ MIN
 
 
 Roteiro realizado segundo os procedimentos descritos em:
