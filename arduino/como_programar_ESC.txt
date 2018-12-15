@@ -46,19 +46,30 @@ A B C D
 -----------------------------------------------------------------------------------------------------------------------
 Roteiro para programação dos ESCs
 Procurar seguir o roteiro em um local silencioso, pois todas as ações irão depender dos beeps gerados pelo motor
+Inserir letras 'i' e 'o' para setar o pwm em max ou min, de acordo com os valores definidos no código.
+ 
+Abrir pdf abaixo contendo os parâmetros possíveis para cada configuração:
+https://github.com/idoria75/moto_multivar/blob/master/arduino/calibra_esc_2/HW-01-V4.pdf
 
-Como visto em:
-https://www.firediy.fr/files/drone/HW-01-V4.pdf
+PRIMEIRA CONFIGURAÇÃO: DEFINIÇÃO DOS VALORES MAX E MIN RECEBIDOS PELO ESC:
+1. Ligar Arduino
+2. Ativar PWM em MAX (Enviar i na serial)
+3. Ligar ESC
+4. Esperar "beep, beep"
+5. Ativar PWM em MIN (Enviar o na serial)
+6. Esperar beep longo
+7. Desligar ESC
 
+SEGUNDA CONFIGURAÇÃO: ALTERAÇÃO DOS PARÂMETROS DE FÁBRICA (SOMENTE SE NECESSÁRIO)
 1. Entrar no modo de programação
 |-> Ligar Arduino
-|-> Ativar PWM em 2000
+|-> Ativar PWM em MAX
 |-> Ligar ESC na Fonte
 |-> Esperar "beep, beep" (aprox. 2 sec)
 |-> Esperar beeps (aprox. 5 sec) -> Modo de programação ativado
 
 2. Escolher item programável
-|-> Reduzir valor do PWM p/ 1000 para escolher alguma das opções abaixo:
+|-> Reduzir valor do PWM p/ MIN para escolher alguma das opções abaixo:
 |-> a. Freios
 |-> b. Tipo de bateria
 |-> c. Modo de corte
@@ -71,14 +82,17 @@ https://www.firediy.fr/files/drone/HW-01-V4.pdf
 
 3. Definir valor p/ o item
 |-> Defina o valor do parametro de acordo com o numero de beeps
-|-> P/ escolher o valor, enviar PWM Max (2000)
-|-> Se manter em 2000, ESC volta para modo 2.
-|-> Se abaixar PWM para 1000 em menos de 2 sec, ESC sai do modo de programação
+|-> P/ escolher o valor, enviar PWM Max
+|-> Se manter em MAX, ESC volta para modo 2.
+|-> Se setar PWM para MIN em menos de 2 sec, ESC sai do modo de programação
 
 4. Sair do modo de programção:
 |-> De 2:
-   |-> PWM 2000 em h. (beep longo, beep longo)
+   |-> PWM MAX em h. (beep longo, beep longo)
 |-> De 3:
-   |-> PWM em 2000 e logo depois já descer p/ 1000
+   |-> PWM em MAX e logo depois já descer p/ MIN
 
+
+Roteiro realizado segundo os procedimentos descritos em:
+https://www.firediy.fr/files/drone/HW-01-V4.pdf
 -----------------------------------------------------------------------------------------------------------------------
