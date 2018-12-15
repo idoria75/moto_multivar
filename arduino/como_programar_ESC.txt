@@ -1,0 +1,98 @@
+-----------------------------------------------------------------------------------------------------------------------
+*Feito por: Ivan Posca Doria - ivanpdoria@gmail.com
+-----------------------------------------------------------------------------------------------------------------------
+Conexões ESC-Motor HD
+Boa parte dos Motores de HD disponíveis possuem 3 ou 4 terminais expostos para o usuário.
+Entretando, a saída do ESC possui apenas 3 terminais (saída trifásica).
+
+P/ Motor com 3 terminais:
+Simplesmente conectar os terminais.
+
+P/ Motor com 4 terminais:
+Neste caso, o motor possui uma conexão do tipo estrela, onde um terminal é o núcleo neutro e os outros são os terminais
+trifásicos. É necessário realizar a conexão com estes terminais, que não necessariamente estarão distribuídos em ordem.
+A chave aqui é, por tentativa e erro, realizar interpolações entre os terminais do ESC e os do Motor de modo a achar
+os 3 terminais do motor que devem ser usados. Deve-se lembrar também que o acionamento trifásico é composto por ondas
+que se alternam com uma sequência. Logo, talvez também seja necessário inverter dois terminais do ESC na hora de
+conectar ao motor.
+Dica: Uma ajuda para identificar os terminais do motor é testar a impedância entre os terminais. Uma conexão terminal-
+nucleo resultará em metade da impedância de uma conexão terminal-terminal (ver obs1).
+Exemplo: Se já foram identificados os terminais do motor mas o ESC ainda não dá partida no motor usando a sequência dos
+terminais do ESC 1-2-3, tentar a sequência 1-3-2 (ver obs2).
+
+Obs1:
+Conexão estrela:
+1           2
+  L \    / L 
+      o         -> Neutro (não conectar aqui)
+      | L
+      3
+
+Obs2:
+- Terminais corretos mas ordem errada
+\/ Motor (com neutro no 3)
+A B C D
+| |  /
+1 2 3
+/\ Esc
+
+- Terminais corretos com ordem corrigida (se necessário)
+\/ Motor (com neutro no 3)
+A B C D
+| |  /
+1 3 2
+/\ Esc
+
+-----------------------------------------------------------------------------------------------------------------------
+Roteiro para programação dos ESCs
+Procurar seguir o roteiro em um local silencioso, pois todas as ações irão depender dos beeps gerados pelo motor
+Inserir letras 'i' e 'o' para setar o pwm em max ou min, de acordo com os valores definidos no código.
+ 
+Abrir pdf abaixo contendo os parâmetros possíveis para cada configuração:
+https://github.com/idoria75/moto_multivar/blob/master/calibra_esc/HW-01-V4.pdf
+
+PRIMEIRA CONFIGURAÇÃO: DEFINIÇÃO DOS VALORES MAX E MIN RECEBIDOS PELO ESC:
+1. Ligar Arduino
+2. Ativar PWM em MAX (Enviar i na serial)
+3. Ligar ESC
+4. Esperar "beep, beep"
+5. Ativar PWM em MIN (Enviar o na serial)
+6. Esperar beep longo
+7. Desligar ESC
+
+SEGUNDA CONFIGURAÇÃO: ALTERAÇÃO DOS PARÂMETROS DE FÁBRICA (SOMENTE SE NECESSÁRIO)
+1. Entrar no modo de programação
+|-> Ligar Arduino
+|-> Ativar PWM em MAX
+|-> Ligar ESC na Fonte
+|-> Esperar "beep, beep" (aprox. 2 sec)
+|-> Esperar beeps (aprox. 5 sec) -> Modo de programação ativado
+
+2. Escolher item programável
+|-> Reduzir valor do PWM p/ MIN para escolher alguma das opções abaixo:
+|-> a. Freios
+|-> b. Tipo de bateria
+|-> c. Modo de corte
+|-> d. Tipo de corte
+|-> e. Modo de inicialização
+|-> f. Temporizador
+|-> g. Reset p/ configurações de fábrica
+|-> h. Sair do modo de programação
+*Cada opção é definida por uma sequencia de beeps, levam 3 segundos, após o toque da sequência, para o ESC ir para a próxima funcao
+
+3. Definir valor p/ o item
+|-> Defina o valor do parametro de acordo com o numero de beeps
+|-> P/ escolher o valor, enviar PWM Max
+|-> Se manter em MAX, ESC volta para modo 2.
+|-> Se setar PWM para MIN em menos de 2 sec, ESC sai do modo de programação
+
+4. Sair do modo de programção:
+|-> De 2:
+   |-> PWM MAX em h. (beep longo, beep longo)
+|-> De 3:
+   |-> PWM em MAX e logo depois já descer p/ MIN
+
+
+Roteiro realizado segundo os procedimentos descritos em:
+https://www.firediy.fr/files/drone/HW-01-V4.pdf
+-----------------------------------------------------------------------------------------------------------------------
